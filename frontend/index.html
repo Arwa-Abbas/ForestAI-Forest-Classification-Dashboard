@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forest Cover Classification Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div id="particles-js"></div>
+    <div class="forest-background"></div>
+    
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-tree"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h1>ForestAI</h1>
+                        <span>Classification Dashboard</span>
+                    </div>
+                </div>
+                <nav class="nav">
+                    <a href="#dashboard" class="nav-link active">
+                        <i class="fas fa-chart-line"></i>
+                        Dashboard
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h2>Intelligent Forest Cover Classification</h2>
+                    <p>Advanced machine learning algorithms to predict forest cover types using cartographic variables and environmental data</p>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <div class="stat-number">97.8%</div>
+                            <div class="stat-label">Accuracy</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">7</div>
+                            <div class="stat-label">Cover Types</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">54</div>
+                            <div class="stat-label">Features</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="forest-visualization">
+                        <div class="tree-container">
+                            <i class="fas fa-tree tree-icon tree-1"></i>
+                            <i class="fas fa-tree tree-icon tree-2"></i>
+                            <i class="fas fa-tree tree-icon tree-3"></i>
+                            <i class="fas fa-tree tree-icon tree-4"></i>
+                            <i class="fas fa-tree tree-icon tree-5"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Dashboard -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Quick Stats -->
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Total Predictions</h3>
+                        <div class="stat-value" id="total-predictions">0</div>
+                        <div class="stat-change positive">+12% this week</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-forest"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Model Accuracy</h3>
+                        <div class="stat-value">97.8%</div>
+                        <div class="stat-change positive">+0.3% improved</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-mountain"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Coverage Area</h3>
+                        <div class="stat-value">581,012</div>
+                        <div class="stat-change">hectares mapped</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Processing Speed</h3>
+                        <div class="stat-value">0.03s</div>
+                        <div class="stat-change positive">avg prediction time</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Prediction Interface -->
+            <section class="prediction-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-brain"></i> Forest Cover Prediction</h2>
+                </div>
+                
+                <div class="prediction-grid">
+                    <!-- Input Panel -->
+                    <div class="card prediction-inputs">
+                        <div class="card-header">
+                            <h3><i class="fas fa-sliders-h"></i> Input Parameters</h3>
+                            <button class="btn-outline" id="reset-btn">
+                                <i class="fas fa-undo"></i> Reset
+                            </button>
+                        </div>
+                        
+                        <form id="prediction-form" class="prediction-form">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="elevation">
+                                        <i class="fas fa-mountain"></i>
+                                        Elevation
+                                    </label>
+                                    <div class="input-with-slider">
+                                        <input type="range" id="elevation-slider" min="1859" max="3858" value="2000" class="slider">
+                                        <input type="number" id="elevation" name="Elevation" min="1859" max="3858" value="2000" required>
+                                        <span class="unit">meters</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="aspect">
+                                        <i class="fas fa-compass"></i>
+                                        Aspect
+                                    </label>
+                                    <div class="input-with-slider">
+                                        <input type="range" id="aspect-slider" min="0" max="360" value="180" class="slider">
+                                        <input type="number" id="aspect" name="Aspect" min="0" max="360" value="180" required>
+                                        <span class="unit">degrees</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="slope">
+                                        <i class="fas fa-chart-line"></i>
+                                        Slope
+                                    </label>
+                                    <div class="input-with-slider">
+                                        <input type="range" id="slope-slider" min="0" max="66" value="10" class="slider">
+                                        <input type="number" id="slope" name="Slope" min="0" max="66" value="10" required>
+                                        <span class="unit">degrees</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="horizontal_hydrology">
+                                        <i class="fas fa-water"></i>
+                                        Distance to Water (Horizontal)
+                                    </label>
+                                    <div class="input-with-slider">
+                                        <input type="range" id="hydrology-h-slider" min="0" max="1397" value="200" class="slider">
+                                        <input type="number" id="horizontal_hydrology" name="Horizontal_Distance_To_Hydrology" min="0" max="1397" value="200" required>
+                                        <span class="unit">meters</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="vertical_hydrology">
+                                        <i class="fas fa-arrows-alt-v"></i>
+                                        Distance to Water (Vertical)
+                                    </label>
+                                    <div class="input-with-slider">
+                                        <input type="range" id="hydrology-v-slider" min="-173" max="601" value="0" class="slider">
+                                        <input type="number" id="vertical_hydrology" name="Vertical_Distance_To_Hydrology" min="-173" max="601" value="0" required>
+                                        <span class="unit">meters</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="horizontal_roadways">
+                                        <i class="fas fa-road"></i>
+                                        Distance to Roads
+                                    </label>
+                                    <div class="input-with-slider">
+                                        <input type="range" id="roadways-slider" min="0" max="7117" value="500" class="slider">
+                                        <input type="number" id="horizontal_roadways" name="Horizontal_Distance_To_Roadways" min="0" max="7117" value="500" required>
+                                        <span class="unit">meters</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="hillshade_9am">
+                                        <i class="fas fa-sun"></i>
+                                        Hillshade 9AM
+                                    </label>
+                                    <div class="input-with-slider">
+                                        <input type="range" id="hillshade-9-slider" min="0" max="254" value="200" class="slider">
+                                        <input type="number" id="hillshade_9am" name="Hillshade_9am" min="0" max="254" value="200" required>
+                                        <span class="unit">index</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="hillshade_noon">
+                                        <i class="fas fa-sun"></i>
+                                        Hillshade Noon
+                                    </label>
+                                    <div class="input-with-slider">
+                                        <input type="range" id="hillshade-12-slider" min="0" max="254" value="220" class="slider">
+                                        <input type="number" id="hillshade_noon" name="Hillshade_Noon" min="0" max="254" value="220" required>
+                                        <span class="unit">index</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="hillshade_3pm">
+                                        <i class="fas fa-sun"></i>
+                                        Hillshade 3PM
+                                    </label>
+                                    <div class="input-with-slider">
+                                        <input type="range" id="hillshade-15-slider" min="0" max="254" value="180" class="slider">
+                                        <input type="number" id="hillshade_3pm" name="Hillshade_3pm" min="0" max="254" value="180" required>
+                                        <span class="unit">index</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="horizontal_fire">
+                                        <i class="fas fa-fire"></i>
+                                        Distance to Fire Points
+                                    </label>
+                                    <div class="input-with-slider">
+                                        <input type="range" id="fire-slider" min="0" max="7173" value="1000" class="slider">
+                                        <input type="number" id="horizontal_fire" name="Horizontal_Distance_To_Fire_Points" min="0" max="7173" value="1000" required>
+                                        <span class="unit">meters</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="wilderness_area">
+                                        <i class="fas fa-map-marked-alt"></i>
+                                        Wilderness Area
+                                    </label>
+                                    <select id="wilderness_area" name="Wilderness_Area" required>
+                                        <option value="1">Rawah Wilderness Area</option>
+                                        <option value="2">Neota Wilderness Area</option>
+                                        <option value="3">Comanche Peak Wilderness Area</option>
+                                        <option value="4">Cache la Poudre Wilderness Area</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="soil_type">
+                                        <i class="fas fa-seedling"></i>
+                                        Soil Type
+                                    </label>
+                                    <select id="soil_type" name="Soil_Type" required>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="submit" class="btn-primary" id="predict-btn">
+                                    <i class="fas fa-magic"></i>
+                                    <span>Predict Cover Type</span>
+                                    <div class="btn-loading">
+                                        <i class="fas fa-spinner fa-spin"></i>
+                                    </div>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Results Panel -->
+                    <div class="card results-panel">
+                        <div class="card-header">
+                            <h3><i class="fas fa-chart-pie"></i> Prediction Results</h3>
+                            <div class="confidence-badge" id="confidence-badge">
+                                <i class="fas fa-check-circle"></i>
+                                <span id="confidence-text">High Confidence</span>
+                            </div>
+                        </div>
+                        
+                        <div id="result-placeholder" class="result-placeholder">
+                            <div class="placeholder-icon">
+                                <i class="fas fa-chart-bar"></i>
+                            </div>
+                            <h4>Ready for Prediction</h4>
+                            <p>Fill in the parameters and click predict to see results</p>
+                        </div>
+                        
+                        <div id="result-container" class="result-container" style="display: none;">
+                            <div class="prediction-result">
+                                <div class="cover-type-visual">
+                                    <div class="cover-type-icon" id="cover-type-icon">
+                                        <i class="fas fa-tree"></i>
+                                    </div>
+                                    <div class="cover-type-info">
+                                        <h4>Predicted Cover Type</h4>
+                                        <div class="cover-type-number" id="prediction-result">-</div>
+                                        <div class="cover-type-name" id="cover-type-name">-</div>
+                                    </div>
+                                </div>
+                                <div class="prediction-confidence">
+                                    <div class="confidence-meter">
+                                        <div class="confidence-fill" id="confidence-fill"></div>
+                                    </div>
+                                    <span class="confidence-value" id="confidence-value">0%</span>
+                                </div>
+                            </div>
+                            
+                            <div class="cover-type-description" id="cover-type-description">
+                                Select parameters and predict to see detailed information about the forest cover type.
+                            </div>
+                            
+                            <div class="prediction-breakdown">
+                                <h4>Probability Distribution</h4>
+                                <div class="probability-bars" id="probability-bars">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Analytics Section -->
+            <section class="analytics-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-chart-area"></i> Model Analytics</h2>
+                    <div class="section-actions">
+                        <button class="btn-outline" id="refresh-charts">
+                            <i class="fas fa-sync-alt"></i>
+                            Refresh
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="charts-grid">
+                    <div class="card chart-card">
+                        <div class="card-header">
+                            <div class="chart-actions">
+                                <button class="chart-toggle active" data-chart="importance">
+                                    <i class="fas fa-chart-bar"></i>
+                                </button>
+                            </div>
+                            <h3>Feature Importance</h3>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="feature-importance-chart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="card chart-card">
+                        <div class="card-header">
+                            <div class="chart-actions">
+                                <button class="chart-toggle active" data-chart="distribution">
+                                    <i class="fas fa-chart-pie"></i>
+                                </button>
+                            </div>
+                            <h3>Cover Type Distribution</h3>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="distribution-chart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="card chart-card full-width">
+                        <div class="card-header">
+                            <div class="chart-actions">
+                                <button class="chart-toggle active" data-chart="elevation">
+                                    <i class="fas fa-chart-line"></i>
+                                </button>
+                            </div>
+                            <h3>Elevation vs Cover Type Analysis </h3>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="elevation-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Forest Cover Types Reference -->
+            <section class="cover-types-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-book-open"></i> Forest Cover Types Reference</h2>
+                </div>
+                
+                <div class="cover-types-grid">
+                    <div class="cover-type-card" data-type="1">
+                        <div class="cover-type-header">
+                            <div class="cover-type-number">1</div>
+                            <div class="cover-type-icon">
+                                <i class="fas fa-tree"></i>
+                            </div>
+                        </div>
+                        <h4>Spruce/Fir</h4>
+                        <p>Dense stands of spruce and fir trees, typically found at higher elevations with cool, moist conditions.</p>
+                        <div class="cover-type-stats">
+                            <span class="stat-item">
+                                <i class="fas fa-thermometer-half"></i>
+                                Cool Climate
+                            </span>
+                            <span class="stat-item">
+                                <i class="fas fa-mountain"></i>
+                                High Elevation
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="cover-type-card" data-type="2">
+                        <div class="cover-type-header">
+                            <div class="cover-type-number">2</div>
+                            <div class="cover-type-icon">
+                                <i class="fas fa-tree"></i>
+                            </div>
+                        </div>
+                        <h4>Lodgepole Pine</h4>
+                        <p>Even-aged stands of lodgepole pine, often resulting from fire disturbance and regeneration cycles.</p>
+                        <div class="cover-type-stats">
+                            <span class="stat-item">
+                                <i class="fas fa-fire"></i>
+                                Fire Adapted
+                            </span>
+                            <span class="stat-item">
+                                <i class="fas fa-chart-line"></i>
+                                Even-aged
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="cover-type-card" data-type="3">
+                        <div class="cover-type-header">
+                            <div class="cover-type-number">3</div>
+                            <div class="cover-type-icon">
+                                <i class="fas fa-tree"></i>
+                            </div>
+                        </div>
+                        <h4>Ponderosa Pine</h4>
+                        <p>Open stands of large ponderosa pine trees with grassy understory, found in drier locations.</p>
+                        <div class="cover-type-stats">
+                            <span class="stat-item">
+                                <i class="fas fa-sun"></i>
+                                Dry Climate
+                            </span>
+                            <span class="stat-item">
+                                <i class="fas fa-expand"></i>
+                                Open Canopy
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="cover-type-card" data-type="4">
+                        <div class="cover-type-header">
+                            <div class="cover-type-number">4</div>
+                            <div class="cover-type-icon">
+                                <i class="fas fa-tree"></i>
+                            </div>
+                        </div>
+                        <h4>Cottonwood/Willow</h4>
+                        <p>Riparian zones with cottonwood and willow trees along stream courses and wet areas.</p>
+                        <div class="cover-type-stats">
+                            <span class="stat-item">
+                                <i class="fas fa-tint"></i>
+                                Riparian
+                            </span>
+                            <span class="stat-item">
+                                <i class="fas fa-water"></i>
+                                Near Water
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="cover-type-card" data-type="5">
+                        <div class="cover-type-header">
+                            <div class="cover-type-number">5</div>
+                            <div class="cover-type-icon">
+                                <i class="fas fa-tree"></i>
+                            </div>
+                        </div>
+                        <h4>Aspen</h4>
+                        <p>Quaking aspen forests, often forming clones through root sprouting, with distinctive white bark.</p>
+                        <div class="cover-type-stats">
+                            <span class="stat-item">
+                                <i class="fas fa-leaf"></i>
+                                Deciduous
+                            </span>
+                            <span class="stat-item">
+                                <i class="fas fa-clone"></i>
+                                Clonal Growth
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="cover-type-card" data-type="6">
+                        <div class="cover-type-header">
+                            <div class="cover-type-number">6</div>
+                            <div class="cover-type-icon">
+                                <i class="fas fa-tree"></i>
+                            </div>
+                        </div>
+                        <h4>Douglas-fir</h4>
+                        <p>Douglas-fir dominated forests, common in montane environments with moderate moisture.</p>
+                        <div class="cover-type-stats">
+                            <span class="stat-item">
+                                <i class="fas fa-balance-scale"></i>
+                                Moderate Climate
+                            </span>
+                            <span class="stat-item">
+                                <i class="fas fa-mountain"></i>
+                                Montane
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="cover-type-card" data-type="7">
+                        <div class="cover-type-header">
+                            <div class="cover-type-number">7</div>
+                            <div class="cover-type-icon">
+                                <i class="fas fa-tree"></i>
+                            </div>
+                        </div>
+                        <h4>Krummholz</h4>
+                        <p>Stunted, twisted trees at alpine treelines, shaped by harsh wind and weather conditions.</p>
+                        <div class="cover-type-stats">
+                            <span class="stat-item">
+                                <i class="fas fa-wind"></i>
+                                Wind Exposed
+                            </span>
+                            <span class="stat-item">
+                                <i class="fas fa-mountain"></i>
+                                Alpine
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>ForestAI Dashboard</h4>
+                    <p>Advanced machine learning for forest classification and environmental analysis.</p>
+                    <div class="social-links">
+                        <a href="https://github.com/Arwa-Abbas/ForestAI-Forest-Classification-Dashboard"><i class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/arwa-abbas-kerani-3228ab346/"><i class="fab fa-linkedin"></i></a>
+                    </div>
+              
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; ForestAI Classification System. All rights reserved. Made by Arwa Abbas</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
