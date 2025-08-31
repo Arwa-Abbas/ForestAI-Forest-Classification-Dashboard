@@ -22,7 +22,7 @@ for i in range(1,41):
 column_names.append("Cover_Type")
 
 
-def download_dataset(file_id, save_path="covertype/covtype.data"):
+def download_dataset(file_id, save_path="covtype.data"):
     """
     Downloads dataset from Google Drive if it doesn't exist locally
     """
