@@ -1,0 +1,9 @@
+flask
+flask-cors
+xgboost
+pandas
+numpy
+joblib
+requests
+scikit-learn
+
