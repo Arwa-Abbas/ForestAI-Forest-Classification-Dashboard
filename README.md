@@ -5,8 +5,10 @@ The backend is powered by **Flask** and **XGBoost**, while the frontend provides
 
 ---
 
-## Dataset
-We use the **Covertype dataset** from the [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/Covertype).  
+## Dataset 
+
+We use the **Covertype dataset** from the [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/Covertype).
+
 ---
 
 ## Features
