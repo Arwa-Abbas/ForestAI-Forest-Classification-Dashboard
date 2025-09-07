@@ -477,7 +477,7 @@ async function handlePrediction(e) {
         
         const processedData = processFormData(data);
 
-        const response = await fetch('https://your-backend-url/predict', {
+        const response = await fetch('http://127.0.0.1:5000/predict', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -1407,5 +1407,4 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('click', () => {
         performanceMetrics.userInteractions++;
     });
-
 });
